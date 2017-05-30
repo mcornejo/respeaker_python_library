@@ -28,6 +28,24 @@ It uses [PocketSphinx](https://github.com/cmusphinx/pocketsphinx) for keyword sp
 
 2. `pip install pyaudio respeaker --upgrade`
 
+3. In case the board is not recognised:
+
+apt-get remove --purge python-pip easy_install pip sudo apt-get install portaudio19-dev sudo apt-get install python-pyaudio
+
+sudo pip install -r requirements.txt
+
+Fix the permissions (raspberry pi 0 w): http://stackoverflow.com/questions/3738173/why-does-pyusb-libusb-require-root-sudo-permissions-on-linux
+
+Add: the following line to /lib/udev/rules.d/50-rspk.rules
+
+ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="171b", ATTRS{idProduct}=="2001", MODE="660", GROUP="plugdev"
+
+Then:
+
+sudo adduser pi plugdev sudo udevadm control --reload sudo udevadm trigger
+
+reboot**
+
 
 
 ### Getting started
